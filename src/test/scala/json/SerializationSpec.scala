@@ -56,18 +56,22 @@ class SerializationSpec extends AnyFunSpec with Matchers {
 
       it("encoder - default") {
         implicit val encoder: Encoder[Order] = deriveEncoder
+
         Order(33).asJson.noSpaces shouldEqual """{"orderNumber":33}"""
       }
 
       it("encoder - configured - snake") {
-        implicit val configuration: Configuration = Configuration.default.withSnakeCaseMemberNames
+
+        implicit val c: Configuration = Configuration.default.withSnakeCaseMemberNames
         implicit val encoder: Encoder[Order] = deriveConfiguredEncoder
+
         Order(33).asJson.noSpaces shouldEqual """{"order_number":33}"""
       }
 
       it("encoder - configured - kebab") {
-        implicit val configuration: Configuration = Configuration.default.withKebabCaseMemberNames
+        implicit val c: Configuration = Configuration.default.withKebabCaseMemberNames
         implicit val encoder: Encoder[Order] = deriveConfiguredEncoder
+
         Order(33).asJson.noSpaces shouldEqual """{"order-number":33}"""
       }
 
