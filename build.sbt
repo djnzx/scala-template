@@ -7,9 +7,9 @@ scalaVersion := "2.13.10"
 
 javacOptions := Seq(
   "-source",
-  "11",
+  "17",
   "-target",
-  "11",
+  "17"
 )
 
 scalacOptions ++= Seq(
@@ -39,6 +39,10 @@ libraryDependencies ++= Seq(
   compilerPlugin("org.typelevel"  %% "kind-projector"     % "0.13.2" cross CrossVersion.full),
   compilerPlugin("com.olegpy"     %% "better-monadic-for" % "0.3.1"),
   compilerPlugin("org.augustjune" %% "context-applied"    % "0.1.4"),
+  "org.typelevel"     %% "cats-core"                % "2.9.0",
+  "org.typelevel"     %% "cats-effect"              % "3.4.4",
+  "co.fs2"            %% "fs2-core"                 % "3.4.0",
+  "co.fs2"            %% "fs2-io"                   % "3.4.0",
   http4s("http4s-core"),
   http4s("http4s-dsl"),
   http4s("http4s-blaze-server"),
