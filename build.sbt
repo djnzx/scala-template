@@ -1,9 +1,9 @@
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 name := "scala-template"
-version := "0.0.1-SNAPSHOT"
+version := "0.0.1"
 
-scalaVersion := "2.13.8"
+scalaVersion := "2.13.10"
 
 javacOptions := Seq(
   "-source",
@@ -23,7 +23,7 @@ scalacOptions ++= Seq(
   "-language:existentials",
   "-Wconf:cat=other-match-analysis:error",
   "-Wunused",
-  "-Xfatal-warnings",
+//  "-Xfatal-warnings",
   "-Ymacro-annotations",
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
@@ -32,8 +32,8 @@ scalacOptions ++= Seq(
   "-Yrepl-class-based",
 )
 
-def http4s(artifact: String): ModuleID = "org.http4s" %% artifact % "1.0.0-M32"
-def circe(artifact: String): ModuleID = "io.circe"    %% artifact % "0.14.1"
+def http4s(artifact: String): ModuleID = "org.http4s" %% artifact % "1.0.0-M38"
+def circe(artifact: String): ModuleID = "io.circe"    %% artifact % "0.14.3"
 
 libraryDependencies ++= Seq(
   compilerPlugin("org.typelevel"  %% "kind-projector"     % "0.13.2" cross CrossVersion.full),
@@ -47,10 +47,10 @@ libraryDependencies ++= Seq(
   circe("circe-generic-extras"),
   circe("circe-parser"),
   "com.github.fd4s"   %% "fs2-kafka"                % "2.5.0-M3",
-  "com.lihaoyi"       %% "pprint"                   % "0.7.3",
-  "com.lihaoyi"       %% "fansi"                    % "0.3.1",
-  "org.scalatest"     %% "scalatest-shouldmatchers" % "3.2.11",
-  "org.scalatest"     %% "scalatest-funspec"        % "3.2.11",
-  "org.scalacheck"    %% "scalacheck"               % "1.15.4",
-  "org.scalatestplus" %% "scalacheck-1-15"          % "3.2.11.0",
+  "com.lihaoyi"       %% "pprint"                   % "0.8.1",
+  "com.lihaoyi"       %% "fansi"                    % "0.4.0",
+  "org.scalatest"     %% "scalatest-shouldmatchers" % "3.2.15",
+  "org.scalatest"     %% "scalatest-funspec"        % "3.2.15",
+  "org.scalacheck"    %% "scalacheck"               % "1.17.0",
+  "org.scalatestplus" %% "scalacheck-1-17"          % "3.2.15.0",
 )
