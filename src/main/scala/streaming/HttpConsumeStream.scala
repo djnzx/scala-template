@@ -46,12 +46,14 @@ object HttpConsumeStream extends IOApp.Simple {
   def pad(s: String, width: Int) = String.format("%-"+width.toString+"s" , s)
 
   def representHeaders(rs: Response[IO]): String = {
+    val prefix = FG.Blue("Headers:")
     val maxWidth = rs.headers.headers.maxBy(_.name.length).name.length
-    rs
+    val data = rs
       .headers
       .headers
       .map(h => FG.LightBlue(pad(h.name.toString, maxWidth)) + " : " + FG.LightBlue(h.value))
       .mkString("\n")
+    s"$prefix\n$data"
   }
 
   def oneByOne =
@@ -59,7 +61,7 @@ object HttpConsumeStream extends IOApp.Simple {
       .use { ec =>
         mkHttpClient(ec)
           .flatMap(_.stream(request))
-          .evalTap { rs => IO.println(FG.Blue("Headers:")) >> IO.println(representHeaders(rs)) }
+          .evalTap { rs => IO.println(representHeaders(rs)) }
           .map(_.body)
           .flatMap(_.through(text.utf8.decode))
           .flatMap(raw =>  decode[Data](raw).fold(_ => Stream.empty, Stream.emit))
