@@ -1,4 +1,4 @@
-package ce
+package streaming
 
 import cats.effect.IO
 import cats.effect.IOApp
@@ -11,11 +11,12 @@ import org.http4s.HttpRoutes
 import scala.concurrent.duration.DurationInt
 import scala.util.Random
 
-object Serve extends IOApp.Simple {
+object HttpServe extends IOApp.Simple {
 
+  /** 5 elements via 1 second */
   val stream: Stream[IO, Data] =
     Stream
-      .awakeEvery[IO](400.millis)
+      .awakeEvery[IO](1.second)
       .map(_ => Data(Random.nextInt(100)))
       .take(5)
 

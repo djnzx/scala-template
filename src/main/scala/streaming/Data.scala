@@ -1,4 +1,4 @@
-package ce
+package streaming
 
 import io.circe.generic.AutoDerivation
 

@@ -3,7 +3,7 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 name := "scala-template"
 version := "0.0.1"
 
-scalaVersion := "2.13.10"
+scalaVersion := "2.13.11"
 
 javacOptions := Seq(
   "-source",
@@ -29,32 +29,45 @@ scalacOptions ++= Seq(
   "-Ywarn-value-discard",
   "-Ywarn-dead-code",
 //  "-Ywarn-unused",
-  "-Yrepl-class-based",
+  "-Yrepl-class-based"
 )
 
-def http4s(artifact: String): ModuleID = "org.http4s" %% artifact % "1.0.0-M38"
-def circe(artifact: String): ModuleID = "io.circe"    %% artifact % "0.14.3"
-
 libraryDependencies ++= Seq(
+  /** some useful plugin things */
   compilerPlugin("org.typelevel"  %% "kind-projector"     % "0.13.2" cross CrossVersion.full),
   compilerPlugin("com.olegpy"     %% "better-monadic-for" % "0.3.1"),
   compilerPlugin("org.augustjune" %% "context-applied"    % "0.1.4"),
-  "org.typelevel"     %% "cats-core"                % "2.9.0",
-  "org.typelevel"     %% "cats-effect"              % "3.4.7",
-  "co.fs2"            %% "fs2-core"                 % "3.6.1",
-  "co.fs2"            %% "fs2-io"                   % "3.6.1",
-  http4s("http4s-core"),
-  http4s("http4s-dsl"),
-  http4s("http4s-blaze-server"),
-  http4s("http4s-blaze-client"),
-  http4s("http4s-circe"),
-  circe("circe-generic-extras"),
-  circe("circe-parser"),
-  "com.github.fd4s"   %% "fs2-kafka"                % "2.5.0",
-  "com.lihaoyi"       %% "pprint"                   % "0.8.1",
-  "com.lihaoyi"       %% "fansi"                    % "0.4.0",
-  "org.scalatest"     %% "scalatest-shouldmatchers" % "3.2.15",
-  "org.scalatest"     %% "scalatest-funspec"        % "3.2.15",
-  "org.scalacheck"    %% "scalacheck"               % "1.17.0",
-  "org.scalatestplus" %% "scalacheck-1-17"          % "3.2.15.0",
+  /** basic category things */
+  "org.typelevel"     %% "cats-core"               % "2.9.0",
+  /** effects */
+  "org.typelevel"     %% "cats-effect"             % "3.5.1",
+  "co.fs2"            %% "fs2-io"                  % "3.8.0",
+  /** json serialization */
+  "io.circe"          %% "circe-parser"            % "0.14.5",
+  "io.circe"          %% "circe-generic-extras"    % "0.14.3",
+  /** http */
+  "org.http4s"        %% "http4s-dsl"              % "0.23.18",
+  "org.http4s"        %% "http4s-circe"            % "0.23.18",
+  "org.http4s"        %% "http4s-blaze-server"     % "0.23.15",
+  "org.http4s"        %% "http4s-blaze-client"     % "0.23.15",
+  /** PostgreSQL */
+  "org.tpolecat"      %% "doobie-postgres"         % "1.0.0-RC2",
+  "org.tpolecat"      %% "doobie-hikari"           % "1.0.0-RC2",
+  "org.postgresql"     % "postgresql"              % "42.6.0",
+  /** kafka */
+  "com.github.fd4s"   %% "fs2-kafka"               % "2.6.1",
+  /** enum support */
+  "com.beachape"      %% "enumeratum"              % "1.7.3",
+  "com.beachape"      %% "enumeratum-circe"        % "1.7.3",
+  "com.beachape"      %% "enumeratum-doobie"       % "1.7.3",
+  "com.beachape"      %% "enumeratum-cats"         % "1.7.3",
+  "com.beachape"      %% "enumeratum-scalacheck"   % "1.7.3",
+  /** testing */
+  "org.scalatest"     %% "scalatest"               % "3.2.16",
+  "org.scalacheck"    %% "scalacheck"              % "1.17.0",
+  "org.scalatestplus" %% "scalacheck-1-17"         % "3.2.16.0",
+  "org.mockito"       %% "mockito-scala-scalatest" % "1.17.14",
+  /** colored & informative output */
+  "com.lihaoyi"       %% "pprint"                  % "0.8.1",
+  "com.lihaoyi"       %% "fansi"                   % "0.4.0"
 )
